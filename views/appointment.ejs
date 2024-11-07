@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Your Appointments</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Your Appointments</h1>
+
+        <!-- Back to Main Page Button -->
+        <a href="/main" class="btn btn-primary mb-3">Back to Main Page</a>
+
+        <% if (appointments.length === 0) { %>
+            <div class="alert alert-info">You have no appointments booked.</div>
+        <% } else { %>
+            <div class="row">
+                <% appointments.forEach(appointment => { %>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= appointment.doctor_name %></h5>
+                                <p class="card-text">Appointment Time: <strong><%= appointment.time_slot %></strong></p>
+                                <p class="card-text">Status: <span class="status-text <%= appointment.status === 'canceled' ? 'text-danger' : '' %>"><%= appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1) %></span></p>
+                                <p class="card-text">Details: <%= appointment.message ? appointment.message : 'No details provided.' %></p>
+                                <% if (appointment.status !== 'canceled') { %>
+                                    <button type="button" class="btn btn-danger cancel-btn" data-id="<%= appointment.id %>">Cancel Appointment</button>
+                                <% } else { %>
+                                    <button type="button" class="btn btn-secondary" disabled>Cancelled</button>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cancelButtons = document.querySelectorAll(".cancel-btn");
+    
+            cancelButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const appointmentId = button.getAttribute("data-id");
+                    
+                    console.log("Appointment ID:", appointmentId); // Debugging log
+                    
+                    if (confirm("Are you sure you want to cancel this appointment?")) {
+                        // Change button text to "Cancelled" and disable it
+                        button.classList.remove("btn-danger");
+                        button.classList.add("btn-secondary");
+                        button.textContent = "Cancelled";
+                        button.disabled = true;
+    
+                        // Update the status text in the same card
+                        const statusText = button.closest(".card-body").querySelector(".status-text");
+                        statusText.textContent = "Cancelled";
+                        statusText.classList.add("text-danger");
+    
+                        // Remove the appointment from the database after 5 seconds
+                       // Wait for 5 seconds before deleting
+                    }
+                });
+            });
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

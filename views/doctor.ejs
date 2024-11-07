@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container my-5">
+    <h2>Doctor's Appointments</h2>
+    <div id="appointments-list" class="row mt-4">
+      <% appointments.forEach(appointment => { %>
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h5 class="card-title">Appointment with <%= appointment.name %></h5>
+              <p><strong>Email:</strong> <%= appointment.email %></p>
+              <p><strong>Phone:</strong> <%= appointment.phone %></p>
+              <p><strong>Date:</strong> <%= appointment.date %></p>
+              <p><strong>Message:</strong> <%= appointment.message %></p>
+              <button class="btn btn-success me-2" onclick="updateAppointmentStatus('<%= appointment.id %>', 'accepted')">Accept</button>
+              <button class="btn btn-danger" onclick="updateAppointmentStatus('<%= appointment.id %>', 'rejected')">Reject</button>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <script>
+    // Function to handle accepting/rejecting appointments
+    function updateAppointmentStatus(appointmentId, status) {
+      fetch(`/update-appointment-status/${appointmentId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert(`Appointment ${status}`);
+          location.reload();
+        } else {
+          alert('Failed to update appointment status');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
