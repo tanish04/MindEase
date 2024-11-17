@@ -3,17 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>MindEase - Login</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('./ai-generated-8704008.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            color: #333;
+        }
+
+        /* Overlay to darken the background */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        /* Enhanced MindEase branding */
+        .site-name {
+    font-size: 6rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: transparent;
+    background: linear-gradient(135deg, #000288, #2100ddc7, #1e00c7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gradient-animation 3s infinite;
+    
+    /* Adding a black border effect */
+    text-shadow: 
+        2px 2px 0 #180680, 
+        -2px -2px 0 #000000,
+        2px -2px 0 #332894,
+        -2px 2px 0 #000000;
+        }
+
+        
+
+        /* Gradient animation for MindEase */
+        @keyframes gradient-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .site-name:hover {
+            text-shadow: 0 0 30px rgba(55, 200, 211, 0.699);
+            transform: scale(1.1);
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* Card styling */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Form labels and inputs */
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            border: none;
+            font-weight: bold;
+            font-size: 1rem;
+            padding: 10px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2575fc, #6a11cb);
+            opacity: 0.9;
+        }
+
+        /* Footer link */
+        .text-primary {
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .text-primary:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message styling */
+        .alert-danger {
+            background: #ffe5e5;
+            color: #d9534f;
+            border: none;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <!-- Overlay for darkening the background -->
+    <div class="overlay"></div>
+
+    <div class="container">
+        <!-- Enhanced Site Name -->
+        <div class="site-name">MindEase</div>
+
+        <!-- Login Form Card -->
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white text-center">
-                        <h2>Login</h2>
+                    <div class="card-header text-center">
+                        Login
                     </div>
                     <div class="card-body">
                         <form action="/login" method="POST">
@@ -43,7 +173,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS (optional, if needed for functionality) -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
